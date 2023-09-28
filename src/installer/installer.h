@@ -3,6 +3,15 @@
 # include <stdio.h>
 # include <jansson.h>
 
-json_t    *get_config(char *package);
+typedef struct s_config
+{
+
+    char    *name;
+
+}   t_config;
+
+t_config    *get_config(char *package);
+
+void        destroy_config(t_config *config);
 
 #endif
