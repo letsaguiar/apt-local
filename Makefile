@@ -2,7 +2,7 @@ CC := cc
 
 CFLAGS := -Wall -Wextra -Werror
 
-CFILES := src/*.c src/json/*.c
+CFILES := src/*.c src/installer/*.c
 
 TARGET := bin/apt-local
 
