@@ -1,7 +1,8 @@
 #ifndef APT_LOCAL_INSTALLER_H
 # define APT_LOCAL_INSTALLER_H
 # include <stdio.h>
+# include <jansson.h>
 
-FILE    *get_config(char *path);
+json_t    *get_config(char *package);
 
 #endif
