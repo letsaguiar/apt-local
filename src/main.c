@@ -1,18 +1,15 @@
 #include "installer/installer.h"
+#include "requester/requester.h"
 #include <string.h>
+#include <stdio.h>
 
-int main(int argc, char **argv)
+int main()
 {
-    t_config    *config;
+    requester_init();
 
-    if (argc < 3)
-        return 1;
-    
-    if (strcmp(argv[1], "list") == 0)
-    {
-        config = get_config(argv[2]);
-        printf("%s", config->name);
-        destroy_config(config);
-    }
+    char *foo = request("https://api.github.com/repos/neovim/neovim/releases");
+    printf("%s", foo);
+    free(foo);
+    requester_close();
     return 0;
 }

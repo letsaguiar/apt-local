@@ -2,9 +2,12 @@ CC := cc
 
 CFLAGS := -Wall -Wextra -Werror
 
-CLIBS := -ljansson
+CLIBS := -ljansson -lcurl
 
-CFILES := src/*.c src/installer/*.c
+CFILES :=				\
+	src/*.c				\
+	src/installer/*.c	\
+	src/requester/*.c	\
 
 TARGET := bin/apt-local
 

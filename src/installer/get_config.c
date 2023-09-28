@@ -1,4 +1,6 @@
 #include "installer.h"
+
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
@@ -35,12 +37,12 @@ json_t  *get_config_object(FILE *config_file)
     return (config_object);
 }
 
-void    get_package_name(t_config *config, json_t *object)
+char    *extract_config(char *name, json_t *object)
 {
-    json_t  *name;
-    
-    name = json_object_get(object, "name");
-    config->name = strdup(json_string_value(name));
+    json_t  *config;
+
+    config = json_object_get(object, name);
+    return (strdup(json_string_value(config)));
 }
 
 t_config    *get_config(char *package)
@@ -51,9 +53,10 @@ t_config    *get_config(char *package)
 
     config_file = get_config_file(package);
     config_object = get_config_object(config_file);
+    
     config = (t_config *) malloc(sizeof (t_config));
-
-    get_package_name(config, config_object);
+    config->name = extract_config("name", config_object);
+    config->repository_url = extract_config("repository_url", config_object);
 
     json_decref(config_object);
     return (config);
