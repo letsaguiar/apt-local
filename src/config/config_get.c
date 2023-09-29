@@ -1,7 +1,5 @@
-#include "installer.h"
-
+#include "config.h"
 #include <stdio.h>
-#include <stdlib.h>
 #include <string.h>
 
 FILE    *get_config_file(char *package)
@@ -18,26 +16,26 @@ FILE    *get_config_file(char *package)
         fprintf(stderr, "Config file not found!");
         exit(2);
     }
-    return (config); 
+    return (config);
 }
 
-json_t  *get_config_object(FILE *config_file)
+json_t  *get_config_object(FILE *file)
 {
-    json_t          *config_object;
-    json_error_t    config_error;
+    json_t          *object;
+    json_error_t    error;
 
-    config_object = json_loadf(config_file, 0, &config_error);
-    fclose(config_file);
+    object = json_loadf(file, 0, &error);
+    fclose(file);
 
-    if (!config_object)
+    if (!object)
     {
-        fprintf(stderr, "Unable to parse config file. Error: on line %d: %s\n", config_error.line, config_error.text);
+        fprintf(stderr, "Unable to parse config file. Error: on line %d: %s\n", error.line, error.text);
         exit(3);
     }
-    return (config_object);
+    return (object);
 }
 
-char    *extract_config(char *name, json_t *object)
+char    *get_config_value(char *name, json_t *object)
 {
     json_t  *config;
 
@@ -45,7 +43,7 @@ char    *extract_config(char *name, json_t *object)
     return (strdup(json_string_value(config)));
 }
 
-t_config    *get_config(char *package)
+t_config    *config_get(char *package)
 {
     FILE        *config_file;
     json_t      *config_object;
@@ -55,8 +53,8 @@ t_config    *get_config(char *package)
     config_object = get_config_object(config_file);
     
     config = (t_config *) malloc(sizeof (t_config));
-    config->name = extract_config("name", config_object);
-    config->repository_url = extract_config("repository_url", config_object);
+    config->name = get_config_value("name", config_object);
+    config->repository_url = get_config_value("repository_url", config_object);
 
     json_decref(config_object);
     return (config);

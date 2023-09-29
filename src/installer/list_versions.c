@@ -11,7 +11,7 @@ void    list_versions(t_config  *config)
     // build url
     strcpy(url, config->repository_url);
     strcat(url, "/releases");
-    response_str = request(url);
+    response_str = requester_request(url);
 
     // convert to json
     json_t          *response_obj;

@@ -1,5 +1,6 @@
 #include "installer/installer.h"
 #include "requester/requester.h"
+#include "config/config.h"
 #include <string.h>
 
 int main(int argc, char **argv)
@@ -10,12 +11,12 @@ int main(int argc, char **argv)
         return 1;
     
     requester_init();
-    config = get_config(argv[2]);
+    config = config_get(argv[2]);
     
     if (strcmp(argv[1], "list") == 0)
         list_versions(config);
 
-    destroy_config(config);
+    config_destroy(config);
     requester_close();
     return 0;
 }

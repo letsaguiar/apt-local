@@ -7,6 +7,6 @@ void    requester_init();
 
 void    requester_close();
 
-char    *request(char *url);
+char    *requester_request(char *url);
 
 #endif

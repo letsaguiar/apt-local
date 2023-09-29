@@ -14,7 +14,7 @@ size_t write(void *contents, size_t size, size_t nmemb, void *userp) {
     return (total_size);
 }
 
-char    *request(char *url)
+char    *requester_request(char *url)
 {
     CURL                *curl;
     CURLcode            status;
