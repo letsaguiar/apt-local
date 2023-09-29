@@ -1,15 +1,13 @@
 #ifndef APT_LOCAL_CLI_H
-# define APT_LOCAL_CLI_H
+#define APT_LOCAL_CLI_H
 
-typedef struct s_cli
-{
+typedef struct {
+
     char    *operation;
     char    *package;
-    char    *version;
-}   t_cli;
 
-t_cli   *cli_parse(char **args);
+}   t_cli_options;
 
-void    cli_destroy(t_cli *cli);
+t_cli_options   *parse_arguments(int argc, char **argv);
 
 #endif
