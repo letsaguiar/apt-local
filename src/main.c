@@ -10,14 +10,12 @@ int main(int argc, char **argv)
         return 1;
     
     requester_init();
-
+    config = get_config(argv[2]);
+    
     if (strcmp(argv[1], "list") == 0)
-    {
-        config = get_config(argv[2]);
         list_versions(config);
-        destroy_config(config);
-    }
 
+    destroy_config(config);
     requester_close();
     return 0;
 }
