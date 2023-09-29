@@ -45,16 +45,29 @@ char    *get_config_value(char *name, json_t *object)
 
 t_config    *config_get(char *package)
 {
-    FILE        *config_file;
-    json_t      *config_object;
-    t_config    *config;
+    FILE    *config_file;
 
+    json_t  *config_object;
+    json_t  *config_binaries_object;
+
+    t_config            *config;
+    t_config_binaries   *binaries;
+
+    // Get sources
     config_file = get_config_file(package);
     config_object = get_config_object(config_file);
-    
+    config_binaries_object = json_object_get(config_object, "binaries");
+
+    // Set primary keys
     config = (t_config *) malloc(sizeof (t_config));
     config->name = get_config_value("name", config_object);
     config->repository_url = get_config_value("repository_url", config_object);
+
+    // Set binaries
+    binaries = (t_config_binaries *) malloc(sizeof (t_config_binaries));
+    binaries->b_linux = get_config_value("b_linux", config_binaries_object);
+    binaries->b_macos = get_config_value("b_macos", config_binaries_object);
+    config->binaries = binaries;
 
     json_decref(config_object);
     return (config);

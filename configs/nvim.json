@@ -1,4 +1,8 @@
 {
     "name": "nvim",
-    "repository_url": "https://api.github.com/repos/neovim/neovim"
+    "repository_url": "https://api.github.com/repos/neovim/neovim",
+    "binaries": {
+        "b_linux": "nvim-linux64.tar.gz",
+        "b_macos": "nvim-macos.tar.gz"
+    }
 }
