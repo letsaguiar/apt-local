@@ -1,3 +1,4 @@
+#include "cli/cli.h"
 #include "installer/installer.h"
 #include "requester/requester.h"
 #include "config/config.h"
@@ -5,17 +6,20 @@
 
 int main(int argc, char **argv)
 {
+    t_cli       *args;
     t_config    *config;
 
     if (argc < 3)
         return 1;
     
     requester_init();
-    config = config_get(argv[2]);
+    args = cli_parse(argv);
+    config = config_get(args->package);
     
-    if (strcmp(argv[1], "list") == 0)
+    if (strcmp(args->operation, "list") == 0)
         installer_list_versions(config);
 
+    cli_destroy(args);
     config_destroy(config);
     requester_close();
     return 0;

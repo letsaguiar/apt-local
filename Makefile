@@ -9,6 +9,7 @@ CFILES :=				\
 	src/installer/*.c	\
 	src/requester/*.c	\
 	src/config/*.c		\
+	src/cli/*.c			\
 
 TARGET := bin/apt-local
 
