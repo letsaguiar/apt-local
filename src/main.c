@@ -14,7 +14,7 @@ int main(int argc, char **argv)
     config = config_get(argv[2]);
     
     if (strcmp(argv[1], "list") == 0)
-        list_versions(config);
+        installer_list_versions(config);
 
     config_destroy(config);
     requester_close();
