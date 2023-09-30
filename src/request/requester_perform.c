@@ -54,5 +54,6 @@ FILE    *requester_perform(const char *url)
 
     curl_slist_free_all(headers);
     curl_easy_cleanup(curl);
-    return (response_file);
+    fclose(response_file);
+    return (fopen("request_response", "r"));
 }

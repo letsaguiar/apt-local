@@ -5,6 +5,8 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+void    list_package_versions(const t_config *config);
+
 int main(int argc, char **argv)
 {
     t_cli_options   *options;
@@ -13,16 +15,9 @@ int main(int argc, char **argv)
     options = parse_arguments(argc, argv);
     config = load_package_config(options->package);
 
-    FILE    *response;
+    if (strcmp(options->operation, "list") == 0)
+        list_package_versions(config);
 
-    response = requester_perform("https://api.github.com/repos/neovim/neovim/releases");
-    if (!response)
-    {
-        fprintf(stderr, "Failed to retrieve response\n");
-        return 1;
-    }
-
-    fclose(response);
     free_package_config(config);
     free(options);
 }
