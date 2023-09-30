@@ -3,13 +3,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-size_t  save(void *buffer, size_t size, size_t count, FILE *stream)
-{
-    fwrite(buffer, size, size * count, stream);
-    return (size * count);
-}
-
-FILE    *requester_request(char *url)
+FILE    *requester_perform(const char *url)
 {
     // Verify if url is NULL
     if (!url)
@@ -21,7 +15,7 @@ FILE    *requester_request(char *url)
     // Init temp file
     FILE    *response_file;
 
-    response_file = tmpfile();
+    response_file = fopen("request_response", "wb");
     if (!response_file) {
         perror("Error creating response file");
         return NULL;
@@ -47,7 +41,6 @@ FILE    *requester_request(char *url)
     
     curl_easy_setopt(curl, CURLOPT_URL, url);
     curl_easy_setopt(curl, CURLOPT_HTTPHEADER, headers);
-    curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, save);
     curl_easy_setopt(curl, CURLOPT_WRITEDATA, response_file);
 
     status = curl_easy_perform(curl);
