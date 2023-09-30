@@ -70,6 +70,7 @@ t_config* load_package_config(const char *package_name)
 
     config->name = get_config_value(root, "name");
     config->repository_url = get_config_value(root, "repository_url");
+    config->binary = get_config_value(root, "binary");
 
     json_decref(root);
 

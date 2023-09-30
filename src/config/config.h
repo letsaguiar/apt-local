@@ -4,8 +4,9 @@
 typedef struct
 {
 
-    char                *name;
-    char                *repository_url;
+    char    *name;
+    char    *repository_url;
+    char    *binary;
 
 }   t_config;
 
