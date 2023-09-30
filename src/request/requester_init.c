@@ -1,4 +1,4 @@
-#include "requester.h"
+#include <curl/curl.h>
 
 void    requester_init()
 {

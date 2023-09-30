@@ -6,8 +6,7 @@ CLIBS := -ljansson -lcurl
 
 CFILES :=				\
 	src/*.c				\
-	src/installer/*.c	\
-	src/requester/*.c	\
+	src/request/*.c		\
 	src/config/*.c		\
 	src/cli/*.c			\
 
