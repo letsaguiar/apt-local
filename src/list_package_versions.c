@@ -13,11 +13,11 @@ void    list_package_versions(const t_config *config)
 
     // Fetch Github API
     FILE    *releases_file;
-    releases_file = requester_perform(url);
+    releases_file = requester_perform(url, "package_releases.txt");
     if (!releases_file)
     {
         perror("Unable to fetch Github API");
-        return (NULL);
+        return;
     }
 
     // Parse response;
@@ -27,7 +27,7 @@ void    list_package_versions(const t_config *config)
     if (!root)
     {
         fprintf(stderr, "Error parsing config file");
-        return NULL;
+        return;
     }
 
     for (size_t i = 0; i < json_array_size(root); i++)

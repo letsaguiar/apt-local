@@ -15,8 +15,8 @@ TARGET := bin/apt-local
 all: $(TARGET)
 
 $(TARGET): $(CFILES)
-	mkdir -p bin
+	mkdir -p bin sources
 	$(CC) $(CFLAGS) $^ -o $@ $(CLIBS)
 
 clean:
-	rm -rf bin/
+	rm -rf bin/ sources/ *.txt *.tar.gz

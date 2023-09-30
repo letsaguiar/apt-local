@@ -7,6 +7,8 @@
 
 void    list_package_versions(const t_config *config);
 
+void    install_package_version(const t_config *config, const char *tag_name);
+
 int main(int argc, char **argv)
 {
     t_cli_options   *options;
@@ -17,6 +19,8 @@ int main(int argc, char **argv)
 
     if (strcmp(options->operation, "list") == 0)
         list_package_versions(config);
+    if (strcmp(options->operation, "install") == 0)
+        install_package_version(config, NULL);
 
     free_package_config(config);
     free(options);

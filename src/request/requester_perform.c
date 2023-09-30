@@ -3,10 +3,10 @@
 #include <stdlib.h>
 #include <string.h>
 
-FILE    *requester_perform(const char *url)
+FILE    *requester_perform(const char *url, const char *filename)
 {
     // Verify if url is NULL
-    if (!url)
+    if (!url || !filename)
     {
         fprintf(stderr, "Request url is NULL\n");
         return NULL;
@@ -15,7 +15,7 @@ FILE    *requester_perform(const char *url)
     // Init temp file
     FILE    *response_file;
 
-    response_file = fopen("request_response", "wb");
+    response_file = fopen(filename, "wb");
     if (!response_file) {
         perror("Error creating response file");
         return NULL;
@@ -55,5 +55,5 @@ FILE    *requester_perform(const char *url)
     curl_slist_free_all(headers);
     curl_easy_cleanup(curl);
     fclose(response_file);
-    return (fopen("request_response", "r"));
+    return (fopen(filename, "r"));
 }

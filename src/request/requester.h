@@ -7,6 +7,6 @@ void    requester_init();
 
 void    requester_close();
 
-FILE    *requester_perform(const char *url);
+FILE    *requester_perform(const char *url, const char *filename);
 
 #endif

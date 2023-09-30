@@ -7,6 +7,8 @@ typedef struct
     char    *name;
     char    *repository_url;
     char    *binary;
+    char    *unpack_folder;
+    char    *unpack_binary;
 
 }   t_config;
 
