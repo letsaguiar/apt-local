@@ -1,9 +1,1 @@
-/bin
-
-/sources
-
-*.tar.gz
-
-*.txt
-
-/.vscode
+venv/

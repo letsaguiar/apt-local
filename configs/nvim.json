@@ -1,7 +1,0 @@
-{
-    "name": "nvim",
-    "repository_url": "https://api.github.com/repos/neovim/neovim",
-    "binary": "nvim-linux64.tar.gz",
-    "unpack_folder": "nvim-linux64",
-    "unpack_binary": "nvim-linux64/bin/nvim"
-}
