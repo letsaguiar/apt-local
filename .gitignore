@@ -1,3 +1,7 @@
 venv/
+downloads/
+sources
 
 __pycache__/
+
+installer.txt
