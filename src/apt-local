@@ -39,6 +39,8 @@ def install(package_name: str):
 	with open(f"installer.txt", "a") as fd:
 		fd.write(f"{os.getcwd()}/{folder_name}/{package_config['binary']}")
 
+	os.system("rm -rf downloads && mkdir downloads")
+
 cli.add_command(list)
 cli.add_command(install)
 
