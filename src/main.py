@@ -1,5 +1,3 @@
-#!venv/bin/python3
-
 import click
 import wget
 import tarfile
@@ -37,7 +35,7 @@ def install(package_name: str):
 	tar_file.close()
 
 	with open(f"installer.txt", "a") as fd:
-		fd.write(f"{os.getcwd()}/{folder_name}/{package_config['binary']}")
+		fd.write(f"{os.getcwd()}/{folder_name}/{package_config['binary']}\n")
 
 	os.system("rm -rf downloads && mkdir downloads")
 
@@ -45,4 +43,5 @@ cli.add_command(list)
 cli.add_command(install)
 
 if __name__ == "__main__":
+    os.chdir('/home/leticia-aguiar/.apt-local')
     cli()

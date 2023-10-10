@@ -1,0 +1,4 @@
+#!/bin/bash
+
+cd $HOME/.apt-local
+./venv/bin/python3 src/main.py $@
