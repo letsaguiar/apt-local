@@ -3,5 +3,6 @@ downloads/
 sources
 
 __pycache__/
+pyrightconfig.json
 
 local-path.txt
