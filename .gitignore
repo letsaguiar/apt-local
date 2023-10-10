@@ -6,3 +6,5 @@ __pycache__/
 pyrightconfig.json
 
 local-path.txt
+
+.vscode/
