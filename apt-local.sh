@@ -60,5 +60,8 @@ apt-local() {
 if [ -f "$APT_LOCAL_DIR/local-path.txt" ];
 then
 	binaries=$(cat $APT_LOCAL_DIR/local-path.txt)
-	PATH=$PATH:$binaries
+	for binary in ${binaries[@]};
+	do
+		PATH=$PATH:$APT_LOCAL_DIR/$binary
+	done
 fi

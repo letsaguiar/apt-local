@@ -1,6 +1,8 @@
 {
 	"name": "starship",
 	"github_url": "https://api.github.com/repos/starship/starship",
-	"asset_name": "starship-x86_64-unknown-linux-gnu.tar.gz",
-	"binary": ""
+	"assets": {
+		"linux": "starship-x86_64-unknown-linux-gnu.tar.gz"
+	},
+	"path": ""
 }
