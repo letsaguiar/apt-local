@@ -1,8 +1,22 @@
 {
 	"name": "nvim",
 	"github_url": "https://api.github.com/repos/neovim/neovim",
-	"assets": {
-		"linux": "nvim-linux64.tar.gz"
-	},
-	"path": "nvim-linux64/bin/"
+	"commands": [
+		{
+			"command": "download",
+			"asset": "nvim-linux64.tar.gz",
+			"destination": "downloads/nvim.tar.gz"
+		},
+		{
+			"command": "extract",
+			"source": "downloads/nvim.tar.gz",
+			"destination": "downloads/nvim"
+		},
+		{
+			"command": "copy",
+			"source": "downloads/nvim/nvim-linux64",
+			"destination": "sources/nvim"
+		}
+	],
+	"path": "nvim/bin"
 }

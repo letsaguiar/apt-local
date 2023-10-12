@@ -1,0 +1,22 @@
+{
+	"name": "k6",
+	"github_url": "https://api.github.com/repos/grafana/k6",
+	"commands": [
+		{
+			"command": "download",
+			"asset": "k6-{version}-linux-amd64.tar.gz",
+			"destination": "downloads/k6.tar.gz"
+		},
+		{
+			"command": "extract",
+			"source": "downloads/k6.tar.gz",
+			"destination": "downloads/k6"
+		},
+		{
+			"command": "copy",
+			"source": "downloads/k6/k6-{version}-linux-amd64",
+			"destination": "sources/k6"
+		}
+	],
+	"path": "k6"
+}

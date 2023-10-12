@@ -10,19 +10,37 @@ from typing import Dict, List
 def get_installed_packages() -> List:
 	return (os.listdir("./sources"))
 
-def install(package_config: Dict, package_asset: Dict) -> None:
-	download_name = f"downloads/{package_config['name']}.tar.gz"
-	source_name = f"sources/{package_config['name']}"
+def get_command_value(package_config: Dict, command: Dict, key: str) -> str:
+	return (
+		command[key].format(
+			version=package_config["version"]
+		)
+	)
 
-	try:
-		github.download_package_asset(package_asset, download_name)
+def install(package_config: Dict, package_release: Dict) -> None:
+	for command in package_config["commands"]:
+		match command["command"]:
+			case "download":
+				package_asset = github.get_package_asset(
+					package_release, get_command_value(package_config, command, "asset")
+				)
 
-		file = tarfile.open(download_name)
-		file.extractall(source_name)
-		file.close()
-	except:
-		click.echo("Unable to download package binary")
-		exit()
+				github.download_package_asset(
+					package_asset, get_command_value(package_config, command, "destination")
+				)
+			case "extract":
+				file = tarfile.open(get_command_value(package_config, command, "source"))
+				file.extractall(get_command_value(package_config, command, "destination"))
+				file.close()
+			case "copy":
+				os.system(
+					"".join((
+						"cp -r ",
+						get_command_value(package_config, command, 'source'), " ",
+						get_command_value(package_config, command, 'destination')
+					))
+				)
+
 
 def clean_installation() -> None:
 	os.system("rm -rf downloads && mkdir downloads")
@@ -36,6 +54,6 @@ def build_local_path() -> None:
 
 	for package in installed_packages:
 		package_config = config.get_package_config(package)
-		fd.write(f"sources/{package_config['name']}/{package_config['path']}\n")
+		fd.write(f"sources/{package_config['path']}\n")
 
 	fd.close()
