@@ -1,18 +1,21 @@
-import wget
 import tarfile
 import click
 import os
 
+import github
 import config
 
-from typing import Dict
+from typing import Dict, List
 
-def download_and_extract(package_config: Dict, package_asset: Dict) -> None:
+def get_installed_packages() -> List:
+	return (os.listdir("./sources"))
+
+def install(package_config: Dict, package_asset: Dict) -> None:
 	download_name = f"downloads/{package_config['name']}.tar.gz"
 	source_name = f"sources/{package_config['name']}"
 
 	try:
-		wget.download(package_asset["browser_download_url"], out=download_name)
+		github.download_package_asset(package_asset, download_name)
 
 		file = tarfile.open(download_name)
 		file.extractall(source_name)
@@ -22,7 +25,7 @@ def download_and_extract(package_config: Dict, package_asset: Dict) -> None:
 		exit()
 
 def build_local_path() -> None:
-	installed_packages = os.listdir('./sources')
+	installed_packages = get_installed_packages()
 	fd = open('local-path.txt', 'w')
 
 	for package in installed_packages:

@@ -1,3 +1,4 @@
+import wget
 import json
 import click
 import requests
@@ -37,3 +38,10 @@ def get_package_asset(package_release: Dict, asset_name: str) -> Dict:
 
     click.echo("Unable to find the selected asset")
     exit()
+
+def download_package_asset(package_asset: Dict, out: str) -> None:
+	try:
+		wget.download(package_asset["browser_download_url"], out=out)
+	except:
+		click.echo("Unable to download package source")
+		exit ()

@@ -21,18 +21,21 @@ def list(package_name: str):
 @click.argument('package_name')
 @click.option('--release', '-r', help='github tag_name of the desired release')
 def install(package_name: str, release: str):
-    package_config = config.get_package_config(package_name)
+	if package_name in installer.get_installed_packages():
+		click.confirm(f"Previous {package_name} version found. Do you want to override it and install the newer version?", abort=True)
 
-    if release:
-        package_release = github.get_package_release(package_config['github_url'], release)
-    else:
-        package_release = github.get_package_release_latest(package_config['github_url'])
+	package_config = config.get_package_config(package_name)
 
-    package_asset = github.get_package_asset(package_release, package_config["assets"]["linux"])
+	if release:
+		package_release = github.get_package_release(package_config['github_url'], release)
+	else:
+		package_release = github.get_package_release_latest(package_config['github_url'])
 
-    installer.download_and_extract(package_config, package_asset)
-    installer.build_local_path()
-    installer.clean_installation()
+	package_asset = github.get_package_asset(package_release, package_config["assets"]["linux"])
+
+	installer.install(package_config, package_asset)
+	installer.build_local_path()
+	installer.clean_installation()
 
 cli.add_command(list)
 cli.add_command(install)
