@@ -25,16 +25,20 @@ def install(package_name: str, release: str):
 	if package_name in installer.get_installed_packages():
 		click.confirm(f"Previous {package_name} version found. Do you want to override it and install the newer version?", abort=True)
 
+	# Get package config
 	package_config = config.get_package_config(package_name)
 
+	# Get package release
 	if release:
 		package_release = github.get_package_release(package_config['github_url'], release)
 	else:
 		package_release = github.get_package_release_latest(package_config['github_url'])
 
-	package_asset = github.get_package_asset(package_release, package_config["assets"]["linux"])
+	# Update package config
+	package_config.update(version=package_release["tag_name"])
 
-	installer.install(package_config, package_asset)
+	# Install
+	installer.install(package_config, package_release)
 	installer.build_local_path()
 	installer.clean_installation()
 
