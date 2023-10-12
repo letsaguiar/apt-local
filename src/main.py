@@ -37,8 +37,20 @@ def install(package_name: str, release: str):
 	installer.build_local_path()
 	installer.clean_installation()
 
+@click.command()
+@click.argument('package_name')
+def remove(package_name: str):
+	if not package_name in installer.get_installed_packages():
+		click.echo(f"{package_name} is not installed.")
+		exit()
+
+	click.confirm(f"Are you sure you want to uninstall {package_name}?", abort=True)
+	installer.uninstall(package_name)
+	installer.build_local_path()
+
 cli.add_command(list)
 cli.add_command(install)
+cli.add_command(remove)
 
 if __name__ == "__main__":
     cli()
