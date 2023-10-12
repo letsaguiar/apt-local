@@ -24,6 +24,12 @@ def install(package_config: Dict, package_asset: Dict) -> None:
 		click.echo("Unable to download package binary")
 		exit()
 
+def clean_installation() -> None:
+	os.system("rm -rf downloads && mkdir downloads")
+
+def uninstall(package_name: str) -> None:
+	os.system(f"rm -rf sources/{package_name}")
+
 def build_local_path() -> None:
 	installed_packages = get_installed_packages()
 	fd = open('local-path.txt', 'w')
@@ -33,6 +39,3 @@ def build_local_path() -> None:
 		fd.write(f"sources/{package_config['name']}/{package_config['path']}\n")
 
 	fd.close()
-
-def clean_installation() -> None:
-	os.system("rm -rf downloads && mkdir downloads")
