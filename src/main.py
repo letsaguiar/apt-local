@@ -1,4 +1,5 @@
 import click
+import os
 
 import config
 import github
@@ -48,9 +49,14 @@ def remove(package_name: str):
 	installer.uninstall(package_name)
 	installer.build_local_path()
 
+@click.command()
+def update():
+	os.system("git pull origin master > /tmp/null 2>&1")
+
 cli.add_command(list)
 cli.add_command(install)
 cli.add_command(remove)
+cli.add_command(update)
 
 if __name__ == "__main__":
     cli()
